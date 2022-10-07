@@ -1,0 +1,40 @@
+<div class="centered">
+    <form (ngSubmit)="buscar()">
+        <mat-form-field>
+            <mat-label>
+                Buscar
+            </mat-label>
+            <input matInput name="textoBusqueda" type="text" autofocus [(ngModel)]="textoBusqueda">
+        </mat-form-field>
+        <button type="submit">
+            Buscar
+        </button>
+    </form>
+    <table mat-table matSort [dataSource]="dataSource">
+    
+        <tr mat-header-row *matHeaderRowDef="nombreColumnas"></tr>
+        <tr mat-row *matRowDef="let pokemon; columns: nombreColumnas;"></tr>
+    
+        <ng-container matColumnDef="ID">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let i = index;"> {{i + 1}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell mat-sort-header="name" *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let pokemon"> {{pokemon.name | titlecase}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="borrar">
+            <th *matHeaderCellDef> Borrar </th>
+            <td *matCellDef="let pokemon; let i = index;" class="center-button">
+                <button mat-button (click)="borrarPokemon(i)" >
+                    <mat-icon>delete</mat-icon>
+                </button>
+    
+            </td>
+        </ng-container>
+    
+    </table>
+    <mat-paginator length="tamanio" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+</div>
